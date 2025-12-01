@@ -139,17 +139,17 @@ if __name__ == "__main__":
     engine = SwissEphEngine()
 
     berlin_payload = {
-        "name": "Dein Name",  # Trage hier deinen Namen ein.
-        "date": "1990-01-01",
-        "time": "12:00",
+        "name": "Scheppi",
+        "date": "1975-05-02",
+        "time": "09:16",
         "timezone": "Europe/Berlin",
-        "latitude": 52.52,
-        "longitude": 13.405,
+        "latitude": 52.473,
+        "longitude": 13.403,
     }
 
     chart = engine.calc_birth_chart_from_payload(berlin_payload)
 
-    print("Berechnetes Geburtshoroskop (Berlin)")
+    print("Berechnetes Geburtshoroskop (Berlin Tempelhof)")
     print(f"Name: {chart['name']}")
     print(f"Julianischer Tag (UT): {chart['jd_ut']:.6f}")
 
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     print(f"Sonnenlänge: {sun_long:.6f}° ({sun_pos:.2f}° {sun_sign})")
     print(f"Mondlänge: {moon_long:.6f}° ({moon_pos:.2f}° {moon_sign})")
 
-    print("Planetenpositionen:")
+    print("Planetenkonstellation:")
     for planet, longitude in chart["planets"].items():
         sign, pos_in_sign = chart["planet_signs"][planet]
         print(
