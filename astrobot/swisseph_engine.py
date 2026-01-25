@@ -210,11 +210,9 @@ class SwissEphEngine:
         jd_ut = swe.julday(dt_utc.year, dt_utc.month, dt_utc.day, hour_utc, swe.GREG_CAL)
         houses = self.calc_houses(jd_ut, latitude, longitude)
         planets = self.calc_planet_longitudes(jd_ut, latitude=latitude, longitude=longitude)
-        planet_signs = {
-            name: self._zodiac_for_longitude(longitude) for name, longitude in planets.items()
-        }
+        planet_signs = {name: self._zodiac_for_longitude(lon) for name, lon in planets.items()}
         house_signs: List[Tuple[str, float]] = [
-            self._zodiac_for_longitude(cusp_longitude) for cusp_longitude in houses["cusps"]
+            self._zodiac_for_longitude(cusp_lon) for cusp_lon in houses["cusps"]
         ]
         aspects = self.calc_aspects(planets)
 
@@ -223,8 +221,8 @@ class SwissEphEngine:
             "date": date_str,
             "time": time_str,
             "timezone": timezone_name,
-            "latitude": payload.get("latitude"),
-            "longitude": payload.get("longitude"),
+            "latitude": latitude,
+            "longitude": longitude,
             "name": payload.get("name", "Unbekannte Person"),
             "planets": planets,
             "planet_signs": planet_signs,
@@ -250,7 +248,7 @@ if __name__ == "__main__":
 
     chart = engine.calc_birth_chart_from_payload(berlin_payload)
 
-    print("Berechnetes Geburtshoroskop ")
+    print("Berechnetes Geburtshoroskop")
     print(f"Name: {chart['name']}")
     print(f"Julianischer Tag (UT): {chart['jd_ut']:.6f}")
 
